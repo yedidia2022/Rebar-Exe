@@ -26,7 +26,7 @@ namespace RebarProject.Controllers
         }
 
         // GET api/<SgakesController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{date}")]
         public ActionResult<DailyReport> Get(DateOnly date)
         {
             var dailyReport = dailyReportService.Get(date);
@@ -45,7 +45,7 @@ namespace RebarProject.Controllers
             return CreatedAtAction(nameof(Get), new { date = dailyReport.Date }, dailyReport);
         }
 
-        // PUT api/<SgakesController>/5
+       
 
     }
 }
