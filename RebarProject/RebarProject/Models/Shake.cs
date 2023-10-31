@@ -9,9 +9,9 @@ namespace RebarProject.Models
         public string Name { get; set; } = String.Empty;
         [BsonElement("description")]
         public string Description { get; set; } = String.Empty;
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string Id { get; set; } = String.Empty;
+
+        [BsonElement("id")]
+        public Guid Id { get; set; }
         [BsonElement("priceForSmall")]
         public double PriceForSmall { get; set; }
         [BsonElement("priceForMedium")]

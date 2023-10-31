@@ -23,7 +23,7 @@ namespace RebarProject.Services
           return _shakes.Find(shake=>true).ToList() ;
         }
 
-        public Shake Get(String id)
+        public Shake Get(Guid id)
         {
             return _shakes.Find(shake =>shake.Id==id).FirstOrDefault();
 
@@ -31,13 +31,13 @@ namespace RebarProject.Services
 
        
 
-        public void Remove(string id)
+        public void Remove(Guid id)
         {
             _shakes.DeleteOne(shake => shake.Id == id);
         }
     
 
-        public void Update(string id, Shake shake)
+        public void Update(Guid id, Shake shake)
         {
             _shakes.ReplaceOne(shake => shake.Id == id,shake);
 

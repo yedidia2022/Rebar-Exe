@@ -6,7 +6,7 @@ using RebarProject.Services;
 
 namespace RebarProject.Controllers
 {
-    [Route("api/[shakes]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ShakesController : ControllerBase
     {   private readonly IShakeService shakeService;
@@ -24,7 +24,7 @@ namespace RebarProject.Controllers
 
         // GET api/<SgakesController>/5
         [HttpGet("{id}")]
-        public ActionResult<Shake> Get(string id)
+        public ActionResult<Shake> Get(Guid id)
         {
            var shake = shakeService.Get(id);
             if(shake == null) 
@@ -44,7 +44,7 @@ namespace RebarProject.Controllers
 
         // PUT api/<SgakesController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(string id, [FromBody] Shake shake)
+        public ActionResult Put(Guid id, [FromBody] Shake shake)
         {
             var existingShake= shakeService.Get(id);
             if(existingShake == null)
@@ -57,7 +57,7 @@ namespace RebarProject.Controllers
 
         // DELETE api/<SgakesController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(Guid id)
         {
             var shake = shakeService.Get(id);
             if (shake == null)
