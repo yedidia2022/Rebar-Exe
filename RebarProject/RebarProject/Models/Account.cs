@@ -8,10 +8,15 @@ namespace RebarProject.Models
     public class Account
     {
         //אולי כדאי לעשות רק את זה וקונרלטר בשביל שיהיהאיך לפנות מהלקוח
-        
-        public List<Order>? Orders { get; set; } 
-       
+
+        [BsonElement("id")]
+        public Guid Id { get; set; }
+        [BsonElement("orders")]
+        public List<Order>? Orders { get; set; }
+        [BsonElement("sumForOrders")]
         public double SumForTheOrders { get; set; } 
+
+
        
 
     }

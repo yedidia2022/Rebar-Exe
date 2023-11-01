@@ -20,5 +20,21 @@ namespace RebarProject.Models
 
         public double PriceForLarge { get; set; }
 
+        public Shake()
+        {
+            
+            Id = Guid.NewGuid();
+        }
+        public Shake(Shake shake)
+        {
+            Name = shake.Name;
+            Description = shake.Description;
+            PriceForSmall = shake.PriceForSmall;
+            PriceForMedium = shake.PriceForMedium;
+            PriceForLarge = shake.PriceForLarge;
+            Id = shake.Id;
+
+        }
+
     }
 }

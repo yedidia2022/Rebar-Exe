@@ -6,7 +6,8 @@ namespace RebarProject.Services
     public class DailyReportService : IDailyReportService
     {
         private readonly IMongoCollection<DailyReport> _dailyReports;
-        private readonly IMongoCollection<Order> _accounts;
+        private readonly CountService countService;
+
 
         public DailyReportService(IDailyReportStoreDateBaseSettings settings, IMongoClient mongoClinet)
         {
@@ -19,7 +20,7 @@ namespace RebarProject.Services
             return _dailyReports.Find(dailyReport => true).ToList();
         }
 
-        public DailyReport Get(DateOnly date)
+        public DailyReport Get(DateTime date)
         {
             return _dailyReports.Find(dailyReport => dailyReport.Date == date).FirstOrDefault();
 
@@ -31,7 +32,28 @@ namespace RebarProject.Services
         }
 
 
+        public void closeCashbox()
+        {
+            double sumPayment = 0;
+            int amount = 0;
+            List<Order> allOrders = countService.Get();
+            foreach (Order order in allOrders)
+            {
+                if (order.OrderDate == DateTime.Now)
+                {
+                    amount++;
+                    sumPayment += order.SumPayment;
+                }
+            }
+            DailyReport dailyreport = new DailyReport();
+            dailyreport.Date = DateTime.Now;
+            dailyreport.TotalPayment= sumPayment;
+            dailyreport.OrdersAmount = amount;
+            Console.WriteLine(" number of orders from today:",dailyreport.OrdersAmount);
+            Console.WriteLine(" the sum payment of orders from today:", dailyreport.TotalPayment);
+            _dailyReports.InsertOne(dailyreport);
 
+        }
 
 
 

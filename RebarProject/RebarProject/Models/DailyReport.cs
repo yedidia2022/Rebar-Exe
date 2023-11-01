@@ -5,7 +5,7 @@ namespace RebarProject.Models
     public class DailyReport
     {
         [BsonElement("date")]
-        public DateOnly Date { get; set; }
+        public DateTime Date { get; set; }
         [BsonElement("ordersAmount")]
         public int OrdersAmount { get; set; }
         [BsonElement("totalPayment")]

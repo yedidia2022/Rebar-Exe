@@ -4,13 +4,13 @@
     {
         public Shake Shake { get; set; }
         public double Price {  get; set; }
-        public int Amount {  get; set; }
+        public string Size {  get; set; }
 
-        public ShakeForOrder(Shake shake,double price,int amount)
+        public ShakeForOrder(Shake shake,double price,string size)
         { //צריך לקרוא לבנאי העתקה פה.
-            this.Shake = shake;
+            this.Shake = new Shake(shake);
             this.Price = price;
-            this.Amount = amount;
+            this.Size = size;
         }
     }
 }

@@ -27,7 +27,7 @@ namespace RebarProject.Controllers
 
         // GET api/<SgakesController>/5
         [HttpGet("{date}")]
-        public ActionResult<DailyReport> Get(DateOnly date)
+        public ActionResult<DailyReport> Get(DateTime date)
         {
             var dailyReport = dailyReportService.Get(date);
             if (dailyReport == null)
@@ -36,16 +36,6 @@ namespace RebarProject.Controllers
             }
             return dailyReport;
         }
-
-        // POST api/<SgakesController>
-        [HttpPost]
-        public ActionResult<DailyReport> Post([FromBody] DailyReport dailyReport)
-        {
-            dailyReportService.Create(dailyReport);
-            return CreatedAtAction(nameof(Get), new { date = dailyReport.Date }, dailyReport);
-        }
-
-       
 
     }
 }

@@ -69,18 +69,6 @@ namespace RebarProject.Controllers
             orderService.Remove(order.Id);
             return Ok($"order with id = {id} deleted");
         }
-        public void showMenuOfAllShakes()
-        {
-            int numberChoice;
-            List<Shake> shakes = shakeService.Get();
-            Console.WriteLine("press 1 to choose shake, 2 to add shake tothe menu");
-            string userChoice = Console.ReadLine();
-            if (!int.TryParse(userChoice, out numberChoice))
-                throw new Exception("not valid input");
-
-           
-            
-
-        }
+        
     }
 }

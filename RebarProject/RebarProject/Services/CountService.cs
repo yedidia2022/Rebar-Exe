@@ -3,17 +3,22 @@ using MongoDB.Driver;
 
 namespace RebarProject.Services
 {
-    public class CountService : IOrderService
+    public class CountService 
     {
+        //private readonly IMongoCollection<Order> _accounts;
         private readonly Account account;
 
-        public CountService(Account account)
+
+        public CountService(/*IAccountStoreDateBaseSettings settings, IMongoClient mongoClinet,*/ Account account)
         {
+            //var database = mongoClinet.GetDatabase(settings.DatabaseName);
+            //_accounts = database.GetCollection<Order>(settings.AccountCollectionName);
             this.account = account;
         }
         public List<Order> Get()
         {
-            return account.Orders;
+            return account.Orders
+                .ToList();
         }
 
         public double GetSum()
@@ -21,15 +26,15 @@ namespace RebarProject.Services
             return account.SumForTheOrders;
 
         }
-        //להוסיף פונקציה של גט ע"י תאריך
-        public Order AddOrder(Order order)
+        
+        public void AddOrder(Order order)
         {
             List<Order> orders;
             orders = account.Orders;
             orders.Add(order);
             account.Orders = orders;
             account.SumForTheOrders += order.SumPayment;
-           return order;
+
         }
         public void Update(Guid id)
         {
@@ -46,5 +51,7 @@ namespace RebarProject.Services
             }
 
         }
+
+        
     }
 }
