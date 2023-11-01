@@ -39,7 +39,7 @@ namespace RebarProject.Controllers
         public ActionResult<Shake> Post([FromBody] Shake shake)
         {
             shakeService.Create(shake);
-            return CreatedAtAction(nameof(Get), new {id = shake.Id},shake);
+            return CreatedAtAction(nameof(Get), new { id = shake.Id }, shake);
         }
 
         // PUT api/<SgakesController>/5

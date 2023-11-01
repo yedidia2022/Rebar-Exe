@@ -9,7 +9,7 @@ namespace RebarProject.Services
         private readonly CountService countService;
 
 
-        public DailyReportService(IDailyReportStoreDateBaseSettings settings, IMongoClient mongoClinet)
+        public DailyReportService(IRebarStoreDateBaseSettings settings, IMongoClient mongoClinet)
         {
             var database = mongoClinet.GetDatabase(settings.DatabaseName);
             _dailyReports = database.GetCollection<DailyReport>(settings.DailyReportCollectionName);
@@ -47,9 +47,9 @@ namespace RebarProject.Services
             }
             DailyReport dailyreport = new DailyReport();
             dailyreport.Date = DateTime.Now;
-            dailyreport.TotalPayment= sumPayment;
+            dailyreport.TotalPayment = sumPayment;
             dailyreport.OrdersAmount = amount;
-            Console.WriteLine(" number of orders from today:",dailyreport.OrdersAmount);
+            Console.WriteLine(" number of orders from today:", dailyreport.OrdersAmount);
             Console.WriteLine(" the sum payment of orders from today:", dailyreport.TotalPayment);
             _dailyReports.InsertOne(dailyreport);
 

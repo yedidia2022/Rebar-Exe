@@ -7,16 +7,21 @@ using RebarProject.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.Configure<ShakeStoreDataBaseSettings>(
-    builder.Configuration.GetSection(nameof(ShakeStoreDataBaseSettings)));
+builder.Services.Configure<RebarStoreDataBaseSettings>(
+    builder.Configuration.GetSection(nameof(RebarStoreDataBaseSettings)));
 
-builder.Services.AddSingleton<IShakeStoreDataBaseSettings>(sp =>
-    sp.GetRequiredService<IOptions<ShakeStoreDataBaseSettings>>().Value);
+builder.Services.AddSingleton<IRebarStoreDateBaseSettings>(sp =>
+    sp.GetRequiredService<IOptions<RebarStoreDataBaseSettings>>().Value);
 
 builder.Services.AddSingleton<IMongoClient>(s =>
-        new MongoClient(builder.Configuration.GetValue<string>("ShakeStoreDataBaseSettings:ConnectionString")));
+        new MongoClient(builder.Configuration.GetValue<string>("RebarStoreDataBaseSettings:ConnectionString")));
 
+builder.Services.AddScoped<IOrderService,OrderService>();
 builder.Services.AddScoped<IShakeService, ShakeService>();
+builder.Services.AddScoped<IDailyReportService, DailyReportService>();
+
+
+
 
 
 builder.Services.AddControllers();

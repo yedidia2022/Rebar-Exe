@@ -11,14 +11,32 @@ namespace RebarProject.Models
         public string Description { get; set; } = String.Empty;
 
         [BsonElement("id")]
-        public Guid Id { get; set; }
+        public Guid Id { get;  }
         [BsonElement("priceForSmall")]
-        public double PriceForSmall { get; set; }
+        public double PriceForSmall { 
+            get { return PriceForSmall; }
+            set {if (value > 0)
+                    this.PriceForSmall = value;
+            } }
         [BsonElement("priceForMedium")]
-        public double PriceForMedium { get; set; }
+        public double PriceForMedium {
+            get { return PriceForMedium; }
+            set
+            {
+                if (value > 0)
+                    this.PriceForMedium = value;
+            }
+        }
         [BsonElement("priceForLarge")]
 
-        public double PriceForLarge { get; set; }
+        public double PriceForLarge {
+            get { return PriceForLarge; }
+            set
+            {
+                if (value > 0)
+                    this.PriceForLarge = value;
+            }
+        }
 
         public Shake()
         {

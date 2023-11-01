@@ -12,7 +12,7 @@ namespace RebarProject.Services
         private readonly CountService countService;
 
 
-        public OrderService(IOrderStoreDateBaseSettings settings, IMongoClient mongoClinet)
+        public OrderService(IRebarStoreDateBaseSettings settings, IMongoClient mongoClinet)
         {
             var database = mongoClinet.GetDatabase(settings.DatabaseName);
             _orders = database.GetCollection<Order>(settings.OrderCollectionName);
@@ -58,18 +58,19 @@ namespace RebarProject.Services
             List<Shake> shakes = shakeService.Get();
             if (shakes == null)
                 return null;
-            
+
             shakesCount = shakes.Count;
             int numberChoice;
             Console.WriteLine("press 1 to choose shake, 2 to add shake to the menu");
             string userChoice = Console.ReadLine();
-            if (!int.TryParse(userChoice, out numberChoice)) 
+            if (!int.TryParse(userChoice, out numberChoice))
                 throw new Exception("not valid input");
-               
 
-            if (numberChoice == 1) {
-               Order newOrder=new Order();
-                newOrder=chooseShakesFromTheMenu(shakes, shakesCount);
+
+            if (numberChoice == 1)
+            {
+                Order newOrder = new Order();
+                newOrder = chooseShakesFromTheMenu(shakes, shakesCount);
                 return newOrder;
             }
             else
@@ -91,7 +92,7 @@ namespace RebarProject.Services
         {
             DateTime startOrder = DateTime.Now;
             int maxShakes = 10, numberChoice, amountOfCups;
-            double price,sumForPayment=0;
+            double price, sumForPayment = 0;
             string userChoice;
             List<ShakeForOrder> shakesWasChosen = new List<ShakeForOrder>();
             if (shakesCount == 0)
@@ -106,23 +107,23 @@ namespace RebarProject.Services
                 userChoice = Console.ReadLine();
                 if (userChoice == "")
                     throw new Exception("not valid");
-                
-                    if (!int.TryParse(userChoice, out numberChoice))
-                        throw new Exception("not valid input");
-                    if (numberChoice > shakesCount - 1)
-                        throw new Exception("there is not this shake");
-                    while (isTillWantsMore == 1)
-                    {
-                        Console.WriteLine("enter S or M or L ");
-                        string size = Console.ReadLine();
 
-                        if (size == "M" || size == "L" || size == "S")
-                        {
-                            Console.WriteLine("how many cups do you want from this shake in this size");
-                            userChoice = Console.ReadLine();
-                            if (!int.TryParse(userChoice, out amountOfCups))
-                                throw new Exception("not valid input");
-                            price = size == "M" ? shakes[i].PriceForMedium : size == "L" ? shakes[i].PriceForLarge : shakes[i].PriceForSmall;
+                if (!int.TryParse(userChoice, out numberChoice))
+                    throw new Exception("not valid input");
+                if (numberChoice > shakesCount - 1)
+                    throw new Exception("there is not this shake");
+                while (isTillWantsMore == 1)
+                {
+                    Console.WriteLine("enter S or M or L ");
+                    string size = Console.ReadLine();
+
+                    if (size == "M" || size == "L" || size == "S")
+                    {
+                        Console.WriteLine("how many cups do you want from this shake in this size");
+                        userChoice = Console.ReadLine();
+                        if (!int.TryParse(userChoice, out amountOfCups))
+                            throw new Exception("not valid input");
+                        price = size == "M" ? shakes[i].PriceForMedium : size == "L" ? shakes[i].PriceForLarge : shakes[i].PriceForSmall;
                         if (amountOfCups == 1)
                         {
                             shakesWasChosen.Add(new ShakeForOrder(shakes[i], price, size));
@@ -130,30 +131,30 @@ namespace RebarProject.Services
                             sumForPayment += price;
                         }
                         else
-                            if (amountOfCups > maxShakes) 
-                             {
-                               Console.WriteLine("you will have more then 10, so we will do just {0}", maxShakes);
-                               amountOfCups = maxShakes;
-                             }
-                                while (amountOfCups > 0)
-                                {
-                                    maxShakes--;
-                                    amountOfCups--;
-                                    shakesWasChosen.Add(new ShakeForOrder(shakes[i], price, size));
-                                }
-
-
-                            Console.WriteLine("do yow want this shake in another size press 1 for yes all the others for countinue?");
-                            userChoice = Console.ReadLine();
-                            if (!int.TryParse(userChoice, out isTillWantsMore))
-                                throw new Exception("not valid");
+                            if (amountOfCups > maxShakes)
+                        {
+                            Console.WriteLine("you will have more then 10, so we will do just {0}", maxShakes);
+                            amountOfCups = maxShakes;
+                        }
+                        while (amountOfCups > 0)
+                        {
+                            maxShakes--;
+                            amountOfCups--;
+                            shakesWasChosen.Add(new ShakeForOrder(shakes[i], price, size));
                         }
 
-                    }
-                    
 
-              
-                
+                        Console.WriteLine("do yow want this shake in another size press 1 for yes all the others for countinue?");
+                        userChoice = Console.ReadLine();
+                        if (!int.TryParse(userChoice, out isTillWantsMore))
+                            throw new Exception("not valid");
+                    }
+
+                }
+
+
+
+
 
             }
             Console.WriteLine("enter your name");
@@ -166,7 +167,7 @@ namespace RebarProject.Services
                 newOrder.SumPayment = sumForPayment;
                 newOrder.OrderDate = DateTime.Now;
                 newOrder.OrderStartTime = startOrder;
-                newOrder.OrderEndTime= DateTime.Now;
+                newOrder.OrderEndTime = DateTime.Now;
                 return newOrder;
             }
 
@@ -178,7 +179,7 @@ namespace RebarProject.Services
 
         public void takeTheOrder()
         {
-           Order orderToDB= menuAndAddShakeToIts();
+            Order orderToDB = menuAndAddShakeToIts();
             if (orderToDB != null)
             {
                 _orders.InsertOne(orderToDB);
@@ -188,15 +189,15 @@ namespace RebarProject.Services
             else
                 Console.WriteLine("we din't enter the order");
         }
-            
-            
-           
 
 
 
 
 
-        
+
+
+
+
 
     }
 }

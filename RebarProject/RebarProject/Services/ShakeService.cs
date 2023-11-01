@@ -7,7 +7,7 @@ namespace RebarProject.Services
     {
         private readonly IMongoCollection<Shake> _shakes;
 
-        public ShakeService(IShakeStoreDataBaseSettings settings,IMongoClient mongoClinet)
+        public ShakeService(IRebarStoreDateBaseSettings settings,IMongoClient mongoClinet)
         {
            var database= mongoClinet.GetDatabase(settings.DatabaseName);
             _shakes = database.GetCollection<Shake>(settings.ShakeCollectionName);
