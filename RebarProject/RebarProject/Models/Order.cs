@@ -39,6 +39,12 @@ namespace RebarProject.Models
         [BsonElement("sales")]
         public List<Sale>? Sales { get;  set; }
 
+        public double TimeToPrepare
+        {
+            get;
+            set;
+        }
+
         public Order() { 
         Id = Guid.NewGuid();
         }

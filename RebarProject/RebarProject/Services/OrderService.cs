@@ -168,6 +168,8 @@ namespace RebarProject.Services
                 newOrder.OrderDate = DateTime.Now;
                 newOrder.OrderStartTime = startOrder;
                 newOrder.OrderEndTime = DateTime.Now;
+                TimeSpan timePrepering= DateTime.Now - startOrder;
+                newOrder.TimeToPrepare = timePrepering.TotalMinutes;
                 return newOrder;
             }
 
